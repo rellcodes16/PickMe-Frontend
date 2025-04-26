@@ -1,6 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../../UI/Button";
 
 function HowItWorks() {
+    const navigate = useNavigate()
+    function getStarted(){
+      navigate('/signup')
+    }
     const Steps = [
         {
           title: "Create Your Account",
@@ -54,7 +59,7 @@ function HowItWorks() {
       ))}
     </div>
   </div>
-  <Button type='primary'>Get Started</Button>
+  <Button type='primary' onClick={getStarted}>Get Started</Button>
 </section>
 
       );

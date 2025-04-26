@@ -6,11 +6,14 @@ import SignUp from "./pages/Auth/SignUp";
 import Login from "./pages/Auth/Login";
 import AppLayout from "./app/AppUI/AppLayout";
 import { ModeProvider } from "./UI/ColorModeToggle";
+import { Toaster } from "react-hot-toast";
+import Organization from "./app/features/organization/Organization";
+import ProfileSettings from "./app/features/profileSetting/ProfileSettings";
 
 function App() {
   return (
     <ModeProvider>
-        <BrowserRouter>
+      <BrowserRouter>
       <Routes>
         <Route element={<LandingLayout />}>
           <Route path="/" element={<LandingPage />} />
@@ -18,11 +21,29 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Route>
         <Route element={<AppLayout />}>
-          <Route path="/app" />
+          <Route path="/app/organizations" element={<Organization />} />
+          <Route path="/app/profilesettings" element={<ProfileSettings />} />
         </Route>
         <Route path="*" element={<div className="p-10">404 - Page Not Found</div>} />
       </Routes>
     </BrowserRouter>
+
+    <Toaster
+      position="top-center" 
+      gutter={12} 
+      containerStyle={{ margin: '8px' }} 
+      toastOptions={{
+        success: {duration: 3000},
+        error: { duration: 5000 },
+        style: { 
+          fontSize: '16px',
+          maxWidth: '500px', 
+          padding: '16px 24px', 
+          backgroundColor: 'white',
+          color: 'gray 0.3'
+        },
+      }}
+    />
     </ModeProvider>
     
   );

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FaBuilding, FaEnvelope, FaLock, FaKey, FaUser } from "react-icons/fa";
 import FormRowVertical from "../../UI/FormRowVertical";
+import { useSignup } from "../../app/hooks/useSignUp";
+import { useNavigate } from "react-router-dom";
 
 const tabs = [
   { key: "org", label: "With Organization" },
@@ -10,6 +12,64 @@ const tabs = [
 
 function SignUp() {
   const [activeTab, setActiveTab] = useState("org");
+  const { mutate: signup, isSuccess, isError } = useSignup();
+  const navigate = useNavigate()
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    organizationName: '',
+    inviteToken: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+   e.preventDefault();
+
+   if (formData.password !== formData.passwordConfirm) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+   if (activeTab === 'org') {
+    signup({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      passwordConfirm: formData.passwordConfirm,
+      organizationName: formData.organizationName,
+    });
+  }
+
+  if (activeTab === 'no-org') {
+    signup({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      passwordConfirm: formData.passwordConfirm,
+    });
+  }
+
+  if (activeTab === 'invite') {
+    signup({
+      name: formData.name,
+      inviteToken: formData.inviteToken,
+      email: formData.email,
+      password: formData.password,
+      passwordConfirm: formData.passwordConfirm,
+    });
+  }
+};
+
+if(isSuccess){
+  navigate('/app/organizations')
+}
+  
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
@@ -36,25 +96,25 @@ function SignUp() {
           </div>
 
           {activeTab === "org" && (
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <FormRowVertical label="Name" icon={FaUser}>
-                <input id="name" type="text" placeholder="Enter your name..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="name" name="name" type="text" placeholder="Enter your name..." value={formData.name} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Organization Name" icon={FaBuilding}>
-                <input id="orgName" type="text" placeholder="Enter organization name..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="orgName" name="organizationName" type="text" placeholder="Enter organization name..." value={formData.organizationName} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Email" icon={FaEnvelope}>
-                <input id="emailOrg" type="email" placeholder="Enter your email..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="emailOrg" name="email" type="email" placeholder="Enter your email..." value={formData.email} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Password" icon={FaLock}>
-                <input id="passwordOrg" type="password" placeholder="Create a strong password..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="passwordOrg" name="password" type="password" placeholder="Create a strong password..." value={formData.password} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Confirm Password" icon={FaLock}>
-                <input id="passwordOrg" type="password" placeholder="Confirm your password..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="passwordConfirmOrg" name="passwordConfirm" type="password" placeholder="Confirm your password..."value={formData.passwordConfirm} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <button
@@ -67,21 +127,21 @@ function SignUp() {
           )}
 
           {activeTab === "no-org" && (
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <FormRowVertical label="Name" icon={FaUser}>
-                <input id="name" type="text" placeholder="Enter your name..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="name" name="name" type="text" placeholder="Enter your name..." value={formData.name} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Email" icon={FaEnvelope}>
-                <input id="emailNoOrg" type="email" placeholder="Enter your email..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="emailNoOrg" name="email" type="email" placeholder="Enter your email..." value={formData.email} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Password" icon={FaLock}>
-                <input id="passwordNoOrg" type="password" placeholder="Create a strong password..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="passwordOrg" name="password" type="password" placeholder="Create a strong password..." value={formData.password} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Confirm Password" icon={FaLock}>
-                <input id="passwordOrg" type="password" placeholder="Confirm your password..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="passwordConfirmOrg" name="passwordConfirm" type="password" placeholder="Confirm your password..." value={formData.passwordConfirm} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <button
@@ -94,25 +154,25 @@ function SignUp() {
           )}
 
           {activeTab === "invite" && (
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <FormRowVertical label="Name" icon={FaUser}>
-                <input id="name" type="text" placeholder="Enter your name..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="name" type="text" name="name" placeholder="Enter your name..." value={formData.name} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Invite Token" icon={FaKey}>
-                <input id="inviteToken" type="text" placeholder="Enter your invite token..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="inviteToken" type="text" name="inviteToken" placeholder="Enter your invite token..." value={formData.inviteToken} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Email" icon={FaEnvelope}>
-                <input id="emailInvite" type="email" placeholder="Enter your email..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="emailInvite" type="email" name="email" placeholder="Enter your email..." value={formData.email} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Password" icon={FaLock}>
-                <input id="passwordInvite" type="password" placeholder="Create a strong password..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="passwordInvite" type="password" name="password" placeholder="Create a strong password..." value={formData.password} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <FormRowVertical label="Confirm Password" icon={FaLock}>
-                <input id="passwordOrg" type="password" placeholder="Confirm your password..." className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
+                <input id="passwordOrg" type="password" name="passwordConfirm" placeholder="Confirm your password..." value={formData.passwordConfirm} onChange={handleChange} className="border border-gray-400 px-2 py-2 rounded-sm placeholder:italic"/>
               </FormRowVertical>
 
               <button

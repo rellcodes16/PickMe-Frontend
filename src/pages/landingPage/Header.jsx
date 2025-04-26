@@ -1,8 +1,13 @@
 import { HiMenu } from "react-icons/hi";
 import Button from "../../UI/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Header({ toggleSidebar }) {
+  const navigate = useNavigate()
+
+  function getStarted(){
+    navigate('/signup')
+  }
   return (
     <header className="bg-white w-full z-10 shadow-md py-4 px-6 flex justify-between items-center">
       <div className="flex items-center gap-3">
@@ -19,7 +24,7 @@ function Header({ toggleSidebar }) {
         <NavLink to="/contact" className="hover:text-violet-700">Contact Us</NavLink>
       </nav>
 
-      <Button type="primary">Get Started</Button>
+      <Button type="primary" onClick={getStarted}>Get Started</Button>
     </header>
   );
 }
