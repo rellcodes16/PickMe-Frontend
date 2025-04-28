@@ -12,7 +12,7 @@ function OrganizationList({ organizations }) {
         </thead>
         <tbody>
           {organizations.map((org) => (
-            <OrganizationRow key={org.id} organization={org} />
+            <OrganizationRow key={org._id} organization={org} />
           ))}
         </tbody>
       </table>
