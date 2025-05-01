@@ -1,8 +1,10 @@
 import React from 'react';
 import OrganizationRow from './OranizationRow';
+import Modal from '../../appUI/AppModal';
 
 function OrganizationList({ organizations }) {
   return (
+    <Modal>
     <div className="overflow-x-auto">
       <table className="min-w-full table-auto">
         <thead>
@@ -17,6 +19,7 @@ function OrganizationList({ organizations }) {
         </tbody>
       </table>
     </div>
+    </Modal>
   );
 }
 

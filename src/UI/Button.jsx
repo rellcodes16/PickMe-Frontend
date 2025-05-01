@@ -7,8 +7,9 @@ const Button = ({ children, disabled, type, onClick, value }) => {
         primarySquareBtn: base + ' bg-violet-700 text-white px-6 py-2 rounded-md hover:bg-violet-800',
         primaryTableBtn: base + ' bg-white text-violet-700 hover:bg-violet-700 rounded-md hover:text-white shadow-sm text-lg mx-1 p-1 w-[120px]',
         purpleBGButton: base + ' px-4 py-2 text-violet-600 bg-white text-lg',
+        whiteBGButton: base + ' px-4 py-2 text-black bg-white text-md rounded-xl shadow-md',
         disabled: base + ' px-4 py-2 bg-gray-500 text-white',
-        danger: base + ' bg-red-500 text-white p-1 shadow-sm text-lg w-[120px] mx-1 rounded-md',
+        danger: base + ' bg-red-500 text-white p-1 shadow-sm text-lg w-[100px] mx-1 rounded-md',
         notify: base + ' px-4 py-2 bg-none text-red-800'
     }
 

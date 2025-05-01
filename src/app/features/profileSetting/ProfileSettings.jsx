@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormRow from "../../../UI/FormRow";
 import Button from "../../../UI/Button";
 import FormRowVertical from "../../../UI/FormRowVertical";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function ProfileSettings() {
+  const user = useSelector((state) => state.auth.user);
+
   const [profilePic, setProfilePic] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name || "");
+      setEmail(user.email || "");
+    }
+  }, [user]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -58,6 +68,7 @@ function ProfileSettings() {
               type="text"
               className="w-full border border-gray-400 shadow-sm rounded-md p-2 focus:ring-2 focus:ring-violet-700"
               value={name}
+              disabled
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -69,10 +80,17 @@ function ProfileSettings() {
               type="email"
               className="w-full border border-gray-400 shadow-sm rounded-md p-2 focus:ring-2 focus:ring-violet-700"
               value={email}
+              disabled
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </FormRowVertical>
+          
+          <div>
+            <Button type='primarySquareBtn'>
+              Edit 
+            </Button>
+          </div>
         </div>
 
         <div className="space-y-5 mt-15">

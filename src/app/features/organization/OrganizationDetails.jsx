@@ -7,8 +7,8 @@ function OrganizationDetails() {
 
   return (
     <div>
-      <h1>{organization?.name}</h1>
-      <p>
+      <h1 className='font-semibold text-2xl'>{organization?.name}</h1>
+      <p className='m-2'>
         {organization?.description || 'This organization has no description available.'}
       </p>
     </div>

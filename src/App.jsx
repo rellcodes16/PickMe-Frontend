@@ -10,6 +10,8 @@ import { Toaster } from "react-hot-toast";
 import Organization from "./app/features/organization/Organization";
 import ProfileSettings from "./app/features/profileSetting/ProfileSettings";
 import OrganizationDetails from "./app/features/organization/OrganizationDetails";
+import Voting from "./app/features/voting/Voting";
+import Invitation from "./app/features/invitation/Invitation";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/app/organizations" element={<Organization />} />
           <Route path="/organization/:id" element={<OrganizationDetails />} />
           <Route path="/app/profilesettings" element={<ProfileSettings />} />
+          <Route path="/app/votings" element={<Voting />} />
+          <Route path="/app/invitations" element={<Invitation />} />
         </Route>
         <Route path="*" element={<div className="p-10">404 - Page Not Found</div>} />
       </Routes>
