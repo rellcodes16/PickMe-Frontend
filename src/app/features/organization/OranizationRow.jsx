@@ -2,14 +2,16 @@ import React from 'react';
 import Button from '../../../UI/Button';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../appUI/AppModal';
-import LeaveOrganization from './LeaveOrganization'; // Make sure path is correct
+import LeaveOrganization from './LeaveOrganization'; 
+import { useLeaveOrganization } from '../../hooks/useLeaveOrg';
 
 function OrganizationRow({ organization }) {
   const navigate = useNavigate();
 
-  const handleLeaveOrg = () => {
-    alert(`Leaving organization: ${organization.name}`);
-    // You could replace this with an API call to actually leave the org
+  const { mutate: leaveOrg, isLoading } = useLeaveOrganization();
+
+  const handleLeaveOrg = (organizationId) => {
+    leaveOrg(organizationId);
   };
 
   const handleViewDetails = () => {
@@ -67,7 +69,7 @@ function OrganizationRow({ organization }) {
         <LeaveOrganization
           organization={organization}
           onCloseModal={() => {}}
-          onConfirmLeave={handleLeaveOrg}
+          onConfirmLeave={() => handleLeaveOrg(organization._id)}
         />
       </Modal.Window>
     </>

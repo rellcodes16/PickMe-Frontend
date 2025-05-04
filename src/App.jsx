@@ -12,10 +12,12 @@ import ProfileSettings from "./app/features/profileSetting/ProfileSettings";
 import OrganizationDetails from "./app/features/organization/OrganizationDetails";
 import Voting from "./app/features/voting/Voting";
 import Invitation from "./app/features/invitation/Invitation";
+import Modal from "./app/appUI/AppModal";
 
 function App() {
   return (
     <ModeProvider>
+      <Modal>
       <BrowserRouter>
       <Routes>
         <Route element={<LandingLayout />}>
@@ -50,6 +52,7 @@ function App() {
         },
       }}
     />
+    </Modal>
     </ModeProvider>
     
   );
