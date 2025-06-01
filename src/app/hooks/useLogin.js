@@ -10,9 +10,13 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      dispatch(setCredentials(data))
-      toast.success('Login Successful!!')
-    },
+      dispatch(setCredentials({
+        user: data.data.user, 
+        token: data.token
+      }));
+      toast.success('Login Successful!!');
+},
+
     onError: (err) => {
       console.error('Login error:', err.response?.data || err.message)
       toast.error('Oopps!! Unable to Login :(')

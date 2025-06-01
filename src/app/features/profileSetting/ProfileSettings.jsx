@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
-import FormRow from "../../../UI/FormRow";
-import Button from "../../../UI/Button";
 import FormRowVertical from "../../../UI/FormRowVertical";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import Modal from "../../appUI/AppModal";
+import EditUserData from "./EditUserData";
 
 function ProfileSettings() {
   const user = useSelector((state) => state.auth.user);
 
-  const [profilePic, setProfilePic] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -21,44 +18,31 @@ function ProfileSettings() {
     }
   }, [user]);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfilePic(URL.createObjectURL(file));
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ name, email, currentPassword, newPassword });
-  };
-
   return (
     <div className="max-w-3xl p-6">
       <h2 className="text-2xl font-semibold italic">Profile Settings</h2>
-      <p className="italic mb-6 text-gray-500">Update your profile, email address and preferences...</p>
+      <p className="italic mb-6 text-gray-500">
+        Update your profile, email address and preferences...
+      </p>
 
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form className="space-y-8">
+        <div className="relative w-24 h-24">
 
-        <div className="flex items-center space-x-6">
-          <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-100">
-            {profilePic ? (
-              <img src={profilePic} alt="Profile" className="object-cover w-full h-full" />
-            ) : (
-              <div className="flex items-center justify-center h-full text-gray-400">
-                Upload
-              </div>
-            )}
-          </div>
-          <label className="bg-violet-700 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-violet-800">
-            Upload Photo
-            <input
-              type="file"
-              className="hidden"
-              onChange={handleImageChange}
-              accept="image/*"
+      <div className="relative w-24 h-24 mb-6">
+        <div className="w-full h-full rounded-full overflow-hidden bg-gray-100 shadow">
+          {user?.photo ? (
+            <img
+              src={user.photo}
+              alt="Profile"
+              className="object-cover w-full h-full"
             />
-          </label>
+          ) : (
+            <div className="flex items-center justify-center h-full text-gray-400 text-sm">
+              No Photo
+            </div>
+          )}
+        </div>
+      </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -85,12 +69,18 @@ function ProfileSettings() {
               required
             />
           </FormRowVertical>
-          
-          <div>
-            <Button type='primarySquareBtn'>
-              Edit 
-            </Button>
-          </div>
+
+          <Modal.Open openModalName="userData">
+            <button
+              onClick={(e) => e.preventDefault()}
+              className="mb-4 px-4 py-2 cursor-pointer bg-white text-violet-700 font-semibold rounded-md shadow-md hover:bg-violet-700 hover:text-white"
+            >
+              + Edit Personal Data
+            </button>
+          </Modal.Open>
+          <Modal.Window name="userData">
+            <EditUserData defaultName={name} defaultEmail={email} />
+          </Modal.Window>
         </div>
 
         <div className="space-y-5 mt-15">
@@ -101,8 +91,8 @@ function ProfileSettings() {
               id="currentPassword"
               type="password"
               className="w-[50%] border border-gray-400 shadow-sm rounded-md p-2 focus:ring-2 focus:ring-violet-700"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
+              // value={currentPassword}
+              // onChange={(e) => setCurrentPassword(e.target.value)}
             />
           </FormRowVertical>
 
@@ -111,19 +101,18 @@ function ProfileSettings() {
               id="newPassword"
               type="password"
               className="w-[50%] border border-gray-400 shadow-sm rounded-md p-2 focus:ring-2 focus:ring-violet-700"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              // value={newPassword}
+              // onChange={(e) => setNewPassword(e.target.value)}
             />
           </FormRowVertical>
         </div>
 
-        <div>
-          <Button
-            type="primarySquareBtn"
-          >
-            Save Changes
-          </Button>
-        </div>
+        <button
+          type="submit"
+          className="mb-4 px-4 py-2 cursor-pointer bg-white text-violet-700 font-semibold rounded-md shadow-md hover:bg-violet-700 hover:text-white"
+        >
+          + Edit Password
+        </button>
       </form>
     </div>
   );

@@ -1,38 +1,38 @@
 import VotingRow from "./VotingRow";
-
-const dummySessions = [
-  {
-    id: 1,
-    title: "AI Enthusiasts Exec Election",
-    organization: "AI Enthusiasts",
-    status: "Active",
-    date: "2025-05-01",
-  },
-  {
-    id: 2,
-    title: "CTRL Labs Onboarding Vote",
-    organization: "CTRL Labs",
-    status: "Upcoming",
-    date: "2025-05-03",
-  },
-  {
-    id: 3,
-    title: "Class Rep Semester Vote",
-    organization: "Class Rep",
-    status: "Closed",
-    date: "2025-04-27",
-  },
-];
+import { useGetVotes } from "../../hooks/useGetVotes";
 
 function VotingList({ activeTab }) {
-  const filtered = dummySessions.filter((session) =>
-    activeTab === "All" ? true : session.status === activeTab
+  const { data, isLoading, isError, error } = useGetVotes();
+
+  function normalizeStatus(status) {
+    switch (status?.toLowerCase()) {
+      case "active":
+        return "Active";
+      case "pending":
+        return "Upcoming";
+      case "closed":
+        return "Closed";
+      default:
+        return "";
+    }
+  }
+
+  const sessions = data?.data || [];
+
+  const filtered = sessions.filter((session) =>
+    activeTab === "All"
+      ? true
+      : normalizeStatus(session.status) === activeTab
   );
+
+  if (isLoading) return <p className="text-gray-500 italic">Loading voting sessions...</p>;
+  if (isError) return <p className="text-red-500 italic">Error: {error?.message}</p>;
+  if (!sessions.length) return <p className="text-gray-500 italic">No voting sessions found.</p>;
 
   return (
     <div className="space-y-4">
       {filtered.map((session) => (
-        <VotingRow key={session.id} session={session} />
+        <VotingRow key={session._id} session={session} />
       ))}
     </div>
   );

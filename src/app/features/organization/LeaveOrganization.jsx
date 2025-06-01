@@ -1,7 +1,9 @@
 import React from 'react';
 import Button from '../../../UI/Button';
+import { useLeaveOrganization } from '../../hooks/useLeaveOrg';
 
 function LeaveOrganization({ onCloseModal, onConfirmLeave, organization }) {
+
   return (
     <div className="text-center space-y-4 max-w-xs">
       <p className="text-gray-600">

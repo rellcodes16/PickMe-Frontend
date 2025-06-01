@@ -1,6 +1,7 @@
 import { FaBuilding, FaFileAlt, FaImage, FaEnvelope } from "react-icons/fa";
 import FormRowVertical from "../../../UI/FormRowVertical";
 import { useState } from "react";
+import { useCreateOrganization } from "../../hooks/useCreateOrg";
 
 function CreateOrganization() {
   const [name, setName] = useState('');
@@ -8,16 +9,13 @@ function CreateOrganization() {
   const [profilePicture, setProfilePicture] = useState(null);
   const [validEmailDomain, setValidEmailDomain] = useState('');
   
+
+  const { mutate, isLoading } = useCreateOrganization();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      name,
-      description,
-      profilePicture,
-      validEmailDomain
-    });
+    mutate({ name, description, profilePicture, validEmailDomain });
   };
-
   return (
     <div className="">
       <div className="">

@@ -1,31 +1,22 @@
-import InvitationRow from "./InvitationRow";
-
-const dummyInvitations = [
-  {
-    id: 1,
-    organization: "CTRL Labs",
-    role: "Admin",
-    date: "2025-04-30",
-  },
-  {
-    id: 2,
-    organization: "AI Enthusiasts",
-    role: "Voter",
-    date: "2025-04-28",
-  },
-  {
-    id: 3,
-    organization: "Class Rep",
-    role: "Admin",
-    date: "2025-04-26",
-  },
-];
+import InvitationRow from './InvitationRow';
+import { useGetInvites } from "../../hooks/useGetInvites";
 
 function InvitationList() {
+  const { data, isLoading, isError, error } = useGetInvites();
+
+  console.log(data)
+
+  if (isLoading) return <p className="text-gray-500 italic">Loading invitations...</p>;
+  if (isError) return <p className="text-red-500 italic">Error loading invites.</p>;
+
+  if (!data || data.data.length === 0) {
+    return <p className="text-gray-500 italic">No pending invitations.</p>;
+  }
+
   return (
     <div className="space-y-4">
-      {dummyInvitations.map((invite) => (
-        <InvitationRow key={invite.id} invite={invite} />
+      {data.data?.map((invite) => (
+        <InvitationRow key={invite._id} invite={invite} />
       ))}
     </div>
   );

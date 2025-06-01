@@ -20,3 +20,14 @@ export const signupUser = async (formData) => {
   return data;
 };
 
+
+export const updateUserData = async (formData) => {
+  const { data } = await axios.patch(
+    'https://pickme-trz3.onrender.com/api/v1/auth/updateMe',
+    formData,
+    {
+      withCredentials: true, 
+    }
+  );
+  return data;
+};
