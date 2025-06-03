@@ -31,3 +31,14 @@ export const updateUserData = async (formData) => {
   );
   return data;
 };
+
+export const updateUserPassword = async (passwords) => {
+  const { data } = await axios.patch(
+    'https://pickme-trz3.onrender.com/api/v1/auth/updatePassword',
+    passwords, 
+    {
+      withCredentials: true, 
+    }
+  );
+  return data;
+};

@@ -44,7 +44,7 @@ function AppNav() {
         </NavLink>
       </li>
       <li>
-        <NavLink to='contact' className={({ isActive }) =>
+        <NavLink to='/app/adminanalytics' className={({ isActive }) =>
           `flex items-center gap-3 text-base px-4 py-3 rounded-md transition-colors
            ${isActive ? 'bg-gray-100 text-violet-700 font-semibold' : 'text-gray-600 hover:bg-gray-50 hover:text-violet-700'}`
         }>

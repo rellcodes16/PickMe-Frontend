@@ -4,13 +4,13 @@ import FormRowVertical from "../../../UI/FormRowVertical";
 import { useUpdateUser } from "../../hooks/useUpdateUserData";
 import { useSelector } from "react-redux";
 
-function EditUserData({ defaultName, defaultEmail, onClose }) {
-  const user = useSelector((state) => state.auth.user); // to get existing photo URL
+function EditUserData({ defaultName, defaultEmail, onCloseModal }) {
+  const user = useSelector((state) => state.auth.user); 
 
   const [name, setName] = useState(defaultName);
   const [email, setEmail] = useState(defaultEmail);
   const [profilePicFile, setProfilePicFile] = useState(null);
-  const [profilePicPreview, setProfilePicPreview] = useState(user?.photo || null);
+  const [profilePicPreview, setProfilePicPreview] = useState(user?.profilePicture || null);
 
   const { mutate, isLoading } = useUpdateUser();
 
@@ -19,7 +19,7 @@ function EditUserData({ defaultName, defaultEmail, onClose }) {
       const url = URL.createObjectURL(profilePicFile);
       setProfilePicPreview(url);
 
-      return () => URL.revokeObjectURL(url); // cleanup old URL
+      return () => URL.revokeObjectURL(url); 
     }
   }, [profilePicFile]);
 
@@ -42,7 +42,7 @@ function EditUserData({ defaultName, defaultEmail, onClose }) {
       return;
     }
 
-    mutate(formData, { onSuccess: onClose });
+    mutate(formData, { onSuccess: onCloseModal });
   };
 
   return (
