@@ -1,4 +1,3 @@
-import React from 'react'
 import { useGetOrganizations } from '../../hooks/useGetOrg'
 import OrganizationList from './OrganizationList'
 import Modal from '../../appUI/AppModal'

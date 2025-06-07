@@ -14,6 +14,8 @@ import Voting from "./app/features/voting/Voting";
 import Invitation from "./app/features/invitation/Invitation";
 import Modal from "./app/appUI/AppModal";
 import AdminLayout from "./app/features/admin/adminUI/AdminLayout";
+import ElectionList from "./app/features/admin/adminPages/elections/ElectionList";
+import AdminList from "./app/features/admin/adminPages/admins/AdminList";
 
 function App() {
   return (
@@ -33,7 +35,11 @@ function App() {
           <Route path="/app/votings" element={<Voting />} />
           <Route path="/app/invitations" element={<Invitation />} />
         </Route>
-        <Route path="/app/adminanalytics" element={<AdminLayout />} />
+        <Route path="/app/adminanalytics" element={<AdminLayout />}>
+          <Route index element={<ElectionList />} />      
+          <Route path="election" element={<ElectionList />} />
+          <Route path="admins" element={<AdminList />} />
+        </Route>
         <Route path="*" element={<div className="p-10">404 - Page Not Found</div>} />
       </Routes>
     </BrowserRouter>

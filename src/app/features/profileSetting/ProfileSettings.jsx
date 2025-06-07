@@ -28,7 +28,15 @@ const { mutate, isLoading } = useUpdateUserPassword();
 
 const handlePasswordChange = (e) => {
   e.preventDefault();
-  mutate({ passwordCurrent: currentPassword, password: newPassword });
+  mutate(
+    { passwordCurrent: currentPassword, password: newPassword },
+    {
+      onSuccess: () => {
+        setCurrentPassword('');
+        setNewPassword('');
+      }
+    }
+  );
 };
 
   return (

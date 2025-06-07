@@ -36,7 +36,6 @@ function CreateOrganization() {
               />
             </FormRowVertical>
 
-            {/* Description */}
             <FormRowVertical label="Description" icon={FaFileAlt}>
               <textarea
                 id="description"
@@ -47,7 +46,6 @@ function CreateOrganization() {
               />
             </FormRowVertical>
 
-            {/* Profile Picture */}
             <FormRowVertical label="Profile Picture" icon={FaImage}>
               <input
                 id="profilePicture"
@@ -57,7 +55,6 @@ function CreateOrganization() {
               />
             </FormRowVertical>
 
-            {/* Valid Email Domain (Optional) */}
             <FormRowVertical label="Valid Email Domain (Optional)" icon={FaEnvelope}>
               <input
                 id="validEmailDomain"

@@ -1,5 +1,4 @@
-import React from 'react'
-import { FaBuilding, FaChartBar, FaEnvelopeOpenText, FaHome, FaInfoCircle, FaTachometerAlt, FaUser, FaUserCog, FaUsers, FaVoteYea } from 'react-icons/fa'
+import { FaTachometerAlt, FaUserCog, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 
 function AdminNav() {
@@ -8,16 +7,16 @@ function AdminNav() {
             <h1 className="text-violet-700 text-center">PickMe</h1>
     <ul className="flex flex-col gap-1 mt-6 px-3">
       <li>
-        <NavLink to='/app/admin/election' className={({ isActive }) =>
+        <NavLink to='/app/adminanalytics/election' className={({ isActive }) =>
           `flex items-center gap-3 text-base px-4 py-3 rounded-md transition-colors
            ${isActive ? 'bg-gray-100 text-violet-700 font-semibold' : 'text-gray-600 hover:bg-gray-50 hover:text-violet-700'}`
         }>
           <FaChartBar className="text-2xl" />
-          <span>Election</span>
+          <span>Elections</span>
         </NavLink>
       </li>
       <li>
-        <NavLink to='/app/admin/admins' className={({ isActive }) =>
+        <NavLink to='/app/adminanalytics/admins' className={({ isActive }) =>
           `flex items-center gap-3 text-base px-4 py-3 rounded-md transition-colors
            ${isActive ? 'bg-gray-100 text-violet-700 font-semibold' : 'text-gray-600 hover:bg-gray-50 hover:text-violet-700'}`
         }>
@@ -26,7 +25,7 @@ function AdminNav() {
         </NavLink>
       </li>
       <li>
-        <NavLink to='/app/admin/analytics' className={({ isActive }) =>
+        <NavLink to='/app/adminanalytics/analytics' className={({ isActive }) =>
           `flex items-center gap-3 text-base px-4 py-3 rounded-md transition-colors
            ${isActive ? 'bg-gray-100 text-violet-700 font-semibold' : 'text-gray-600 hover:bg-gray-50 hover:text-violet-700'}`
         }>
@@ -35,7 +34,7 @@ function AdminNav() {
         </NavLink>
       </li>
       <li>
-        <NavLink to='/app/admin/settings' className={({ isActive }) =>
+        <NavLink to='/app/adminanalytics/settings' className={({ isActive }) =>
           `flex items-center gap-3 text-base px-4 py-3 rounded-md transition-colors
            ${isActive ? 'bg-gray-100 text-violet-700 font-semibold' : 'text-gray-600 hover:bg-gray-50 hover:text-violet-700'}`
         }>

@@ -1,6 +1,4 @@
-import React from 'react';
 import Button from '../../../UI/Button';
-import { useLeaveOrganization } from '../../hooks/useLeaveOrg';
 
 function LeaveOrganization({ onCloseModal, onConfirmLeave, organization }) {
 

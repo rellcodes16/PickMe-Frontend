@@ -9,7 +9,7 @@ const Button = ({ children, disabled, type, onClick, value }) => {
         purpleBGButton: base + ' px-4 py-2 text-violet-600 bg-white text-lg',
         whiteBGButton: base + ' px-4 py-2 text-black bg-white text-md rounded-xl shadow-md',
         disabled: base + ' px-4 py-2 bg-gray-500 text-white',
-        danger: base + ' bg-red-500 text-white p-1 shadow-sm text-lg w-[100px] mx-1 rounded-md',
+        danger: 'px-3 py-1 text-sm font-semibold text-red-600 cursor-pointer bg-red-100 rounded-md hover:bg-red-200 hover:text-red-800 transition-all duration-200',
         notify: base + ' px-4 py-2 bg-none text-red-800'
     }
 
