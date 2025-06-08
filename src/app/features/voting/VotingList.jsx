@@ -4,6 +4,8 @@ import { useGetVotes } from "../../hooks/useGetVotes";
 function VotingList({ activeTab }) {
   const { data, isLoading, isError, error } = useGetVotes();
 
+  console.log(data)
+
   function normalizeStatus(status) {
     switch (status?.toLowerCase()) {
       case "active":
@@ -17,7 +19,7 @@ function VotingList({ activeTab }) {
     }
   }
 
-  const sessions = data?.data || [];
+  const sessions = data || [];
 
   const filtered = sessions.filter((session) =>
     activeTab === "All"

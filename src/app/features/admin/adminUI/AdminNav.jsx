@@ -1,4 +1,4 @@
-import { FaTachometerAlt, FaUserCog, FaUsers } from 'react-icons/fa'
+import { FaChartBar, FaTachometerAlt, FaUserCog, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 
 function AdminNav() {

@@ -45,7 +45,7 @@ function AdminList() {
                 onClick={() => toggleOrg(org.name)}
                 className="flex justify-between items-center cursor-pointer py-3"
               >
-                <h2 className="text-xl font-semibold">{org.name} Admins</h2>
+                <h2 className="text-2xl font-semibold">{org.name} Admins</h2>
 
                 <div className="flex items-center gap-2">
                   <div

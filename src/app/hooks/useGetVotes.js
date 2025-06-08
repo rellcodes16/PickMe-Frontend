@@ -10,8 +10,8 @@ export const useGetVotes = () => {
   return useQuery({
     queryKey: ['votes'],
     queryFn: getVotes,
-    onSuccess: (data) => {
-      const votes = data?.data || []
+    onSuccess: (votes) => {
+      console.log(votes)
       dispatch(setVotes(votes)) 
       toast.success('Votes fetched successfully!')
     },

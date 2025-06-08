@@ -3,34 +3,62 @@ import ElectionRow from "./ElectionRow";
 import { Menu } from "../../../../appUI/AppMenu";
 import Modal from "../../../../appUI/AppModal";
 import CreateElection from "./CreateElections";
+import { useGetOrganizations } from "../../../../hooks/useGetOrg";
+import { useSelector } from "react-redux";
 
-const organizations = [
-  {
-    name: "Tech Club",
-    elections: [
-      { _id: "1", title: "President Election", date: "2025-06-08" },
-      { _id: "2", title: "Treasurer Election", date: "2025-06-15" },
-    ],
-  },
-  {
-    name: "Eco Group",
-    elections: [
-      { _id: "3", title: "Chair Election", date: "2025-06-20" },
-    ],
-  },
-];
+// const organizations = [
+//   {
+//     name: "Tech Club",
+//     elections: [
+//       { _id: "1", title: "President Election", date: "2025-06-08" },
+//       { _id: "2", title: "Treasurer Election", date: "2025-06-15" },
+//     ],
+//   },
+//   {
+//     name: "Eco Group",
+//     elections: [
+//       { _id: "3", title: "Chair Election", date: "2025-06-20" },
+//     ],
+//   },
+// ];
 
 function ElectionList() {
+  const user = useSelector((state) => state.auth.user);
+  const votes = useSelector((state) => state.votes);
+
+  console.log(votes)
   const [openOrg, setOpenOrg] = useState(null);
+
+  const { data, isLoading, isError, error } = useGetOrganizations()
+  
+  const organizations = data?.data?.organizations || []
+
+  const adminOrgs = user && user._id
+    ? organizations.filter((org) =>
+      Array.isArray(org.roles) &&
+      org.roles.some((role) => String(role.userId) === String(user._id) && role.role === "admin")
+    )
+  : [];
+
+
+    console.log(adminOrgs)
+
+  if (isLoading) return <div className="p-4 text-lg">Loading organizations...</div>;
+  if (isError) return <div className="p-4 text-red-500">Error: {error?.message}</div>;
+  if (!user || !user._id) return <div className="p-4 text-gray-500">User not loaded.</div>;
+  if (adminOrgs.length === 0) return <div className="p-4 text-gray-500">You're not an admin of any organization.</div>;
+
 
   const toggleOrg = (name) => {
     setOpenOrg((prev) => (prev === name ? null : name));
   };
 
+  
+
   return (
     <Modal>
       <div className="p-4 space-y-6">
-        {organizations.map((org) => {
+        {adminOrgs.map((org) => {
           const isOpen = openOrg === org.name;
 
           return (
@@ -79,7 +107,6 @@ function ElectionList() {
         })}
       </div>
 
-      {/* 👇 Moved OUTSIDE the .map — now it won't close with toggleOrg */}
       <Modal.Window name="createOrg">
         <CreateElection />
       </Modal.Window>
